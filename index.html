@@ -2,41 +2,46 @@
 <html>
 
 <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>百度地图</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style type="text/css">
-        html {
-            height: 100%
-        }
-
-        body {
-            /* 设置容器样式大小，使地图充满整个浏览器窗口 */
-            height: 100%;
-            margin: 0px;
-            padding: 0px
-        }
-
+        body,
+        html,
         #container {
-            height: 100%
+            /* 设置容器样式大小，使地图充满整个浏览器窗口 */
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
         }
     </style>
     <!-- 引用百度地图API文件 -->
-    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>
-    //v3.0版本的引用方式：src="http://api.map.baidu.com/api?v=3.0&ak=您的密钥"
-    </script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=UoB0IuuNxxXx6Wzrq9g42iVG8eB6t9Bo"></script>
+    <title>地图展示</title>
 </head>
 
 <body>
+    <!-- 地图需要一个HTML元素作为容器，这样才能展现到页面上。 -->
     <div id="container"></div>
-    <script type="text/javascript">
-        var map = new BMap.Map("container");
-        // 创建地图实例  
-        var point = new BMap.Point(116.404, 39.915);
-        // 创建点坐标  
-        map.centerAndZoom(point, 15);
-// 初始化地图，设置中心点坐标和地图级别
-    </script>
 </body>
 
 </html>
+<script type="text/javascript">
+    // 百度地图API功能
+    // 位于BMap命名空间下的Map类表示地图，通过new操作符可以创建一个地图实例。其参数可以是元素id也可以是元素对象。
+    var map = new BMap.Map("container");    // 创建Map实例
+    // 设置中心点坐标
+    // 使用BMap命名空间下的Point类来创建一个坐标点。Point类描述了一个地理坐标点，其中116.404表示经度，39.915表示纬度。（为天安门坐标）
+    // 在创建地图实例后，我们需要对其进行初始化，BMap.Map.centerAndZoom()方法要求设置中心点坐标和地图级别。 地图必须经过初始化才可以执行其他操作。
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别（var point = new BMap.Point(116.404, 39.915); map.centerAndZoom(point, 15);  ）
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]
+    }));
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+</script>
